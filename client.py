@@ -38,8 +38,7 @@ def send(client) -> None:
         
         data = file.read()
         client.sendall(data)
-        client.send(b"END!")  
-        
+        client.send(b"END!")          
         
     
 def main():

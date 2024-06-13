@@ -7,6 +7,10 @@ HEADER = 102400
 FORMAT = "utf-8"
 DISCONNECT = "EXIT!"
 
+def make_file(filename, data):
+    with open(filename, "wb") as fp:
+        fp.write(data)
+    
 def handle_client(conn, addr):
     print("New Connection: ", addr)
     connected = True
@@ -17,17 +21,21 @@ def handle_client(conn, addr):
             state += 1
             msg_sz = int(msg_sz)
             msg = conn.recv(msg_sz).decode(FORMAT)
+            if state == 1:
+                filename = 'recv'+msg
             # Collect all data
-            if state >= 3:
+            if state >= 2:
                 done = False
+                data = b''
                 file_bytes = b' '
                 while not done:
-                    data = conn.recv(HEADER)
+                    data += conn.recv(HEADER)
                     if (data[-4::] == b'END!'):
                         done = True
                         state=0
                     else:
                         file_bytes += data
+                make_file(filename, data)
             if msg == DISCONNECT:
                 connected=False
     conn.close()
