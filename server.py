@@ -29,13 +29,14 @@ def handle_client(conn, addr):
                 data = b''
                 file_bytes = b' '
                 while not done:
-                    data += conn.recv(HEADER)
-                    if (data[-4::] == b'END!'):
+                    data = conn.recv(msg_sz)
+                    print(data)
+                    if (file_bytes[-4::] == b'END!'):
                         done = True
                         state=0
                     else:
                         file_bytes += data
-                make_file(filename, data)
+                make_file(filename, file_bytes)
             if msg == DISCONNECT:
                 connected=False
     conn.close()
