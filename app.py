@@ -6,6 +6,10 @@ app = Flask(__name__)
 def home():		
 	return render_template("index.html")
 
+@app.route('/login' , methods=['POST', 'GET'])
+def login():
+	return render_template("login.html")
+
 @app.route('/submit', methods=["POST","GET"])
 def submit_page():
 	return render_template("submit.html")
