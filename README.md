@@ -8,6 +8,6 @@ The development for this project will utilize Flask
 Prospective Tech Stack
 <ul>
   <li>Flask</li>
-  <li>socket</li>
+  <li>sql</li>
   <li>python</li>
 </ul>
